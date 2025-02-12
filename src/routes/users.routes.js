@@ -1,24 +1,10 @@
-const {Router} = require("express")
-const UsersController = require("../controllers/UsersControllers")
+const { Router } = require("express");
+const UsersController = require("../controllers/UsersControllers");
 
-const usersRoutes = Router()
+const usersRoutes = Router();
 
-const usersController = new UsersController
+const usersController = new UsersController();
 
-function myMiddleware(request, response, next) {
-    console.log ("you called middleware")
+usersRoutes.post("/", usersController.create);
 
-    const {name} = request.body
-
-    if(name != "Marcelo"){
-        return response.json(`Você não é um usuario administrativo`)
-    }else {
-			return next()
-		}
-
-    
-}
-
-usersRoutes.post("/", myMiddleware, usersController.create) 
-
-module.exports = usersRoutes
+module.exports = usersRoutes;
